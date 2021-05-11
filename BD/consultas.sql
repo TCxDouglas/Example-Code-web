@@ -17,4 +17,5 @@ SELECT calificaciones.idCalificacion, respuestas.idRespuesta, preguntas.idPregun
 preguntas.pregunta, respuestas.respuesta, respuestas.estado
 FROM 
 calificaciones, preguntas, respuestas
-WHERE calificaciones.idCalificacion = respuestas.idCalificacion and preguntas.idPregunta = respuestas.idPregunta
+WHERE calificaciones.idCalificacion = respuestas.idCalificacion and preguntas.idPregunta = respuestas.
+

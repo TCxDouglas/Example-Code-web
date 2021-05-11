@@ -8,6 +8,11 @@ var query = {
         'FROM evaluaciones, preguntas WHERE evaluaciones.idEvaluacion = preguntas.idEvaluacion and evaluaciones.idEvaluacion =' + idEva
 
         return getQuery
+    }, 
+    saveScore: (idAlumno, idEvaluacion, puntaje) => {
+        getQuery = 'INSERT INTO calificaciones (idAlumno, idEvaluacion, puntaje) VALUES ("' + idAlumno + '", "' + idEvaluacion + '", "' + puntaje + '")'
+
+        return getQuery
     }
 }
 

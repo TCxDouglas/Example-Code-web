@@ -43,6 +43,37 @@ var controller = {
                 message: 'Falta el ID de la evaluacion'
             })
         }
+    },
+    saveScore: (req, res) => {
+        const { idAlumno, idEvaluacion, puntaje } = req.body;
+
+        try {
+            
+            var validate_idAlumno = !validator.isEmpty(idAlumno);
+            var validate_idEvaluacion = !validator.isEmpty(idEvaluacion);
+            var validate_puntaje = !validator.isEmpty(puntaje);
+
+            if(validate_idAlumno && validate_idEvaluacion && validate_puntaje) {
+
+                mysqlConnection.query(querys.saveScore(idAlumno, idEvaluacion, puntaje), (err, rows, fields) => {
+                    if (!err) {
+                        return res.status(200).send({
+                            message: 'Success',
+                            test: rows
+                        }) 
+                    } else {
+                        console.log(err);
+                        return res.status(404).send({
+                            message: 'Error, no se guardo el registro'
+                        }) 
+                    }
+                });
+
+            }
+
+        } catch (error) {
+            
+        }
     }
 }
 
