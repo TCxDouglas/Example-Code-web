@@ -12,5 +12,7 @@ router.get('/listEvaluations/:materia', examenesControllers.listEvaluations);
 router.get('/getQuestionTest/:idEvaluacion', examenesControllers.getQuestionTest);
 router.post('/saveScore', examenesControllers.saveScore);
 router.post('/saveAnswers', examenesControllers.saveAnswers);
+router.get('/getEvaluation/:idAlumno/:idEvaluacion', examenesControllers.getEvaluation);
+router.get('/getAnswers/:idCalificacion', examenesControllers.getAnswers);
 
 module.exports = router;

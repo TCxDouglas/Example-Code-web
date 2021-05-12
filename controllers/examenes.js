@@ -134,6 +134,73 @@ var controller = {
         }
 
 
+    },
+    getEvaluation: (req, res) =>{
+        const { idAlumno, idEvaluacion } = req.params;
+        
+        var validate_idAlumno = !validator.isEmpty(idAlumno);
+        var validate_idEvaluacion = !validator.isEmpty(idEvaluacion);
+
+        if(validate_idAlumno && validate_idEvaluacion){
+            mysqlConnection.query(querys.getEvaluations(idAlumno, idEvaluacion), (err, rows, fields) => {
+                if (!err) {
+
+                    if (rows.length > 0) {
+                        return res.status(200).send({
+                            message: 'Success',
+                            evaluations: rows
+                        })
+                    } else {
+                        return res.status(200).send({
+                            message: 'No ha realizado el examen todavia'
+                        })
+                    }
+
+                } else {
+                    console.log(err);
+                    return res.status(404).send({
+                        message: 'Fallo en la consulta :('
+                    })
+                }
+            });
+        }else{
+            return res.status(404).send({
+                message: 'Falta datos por enviar'
+            })
+        }
+    },
+    getAnswers: (req, res) => {
+        const { idCalificacion } = req.params;
+
+        var validate_idCalificacion = !validator.isEmpty(idCalificacion);
+
+        if(validate_idCalificacion){
+            mysqlConnection.query(querys.getAnswers(idCalificacion), (err, rows, fields) => {
+                if (!err) {
+
+                    if (rows.length > 0) {
+                        return res.status(200).send({
+                            message: 'Success',
+                            evaluations: rows
+                        })
+                    } else {
+                        return res.status(200).send({
+                            message: 'No hay respuestas registradas de esta Evaluacion'
+                        })
+                    }
+
+                } else {
+                    console.log(err);
+                    return res.status(404).send({
+                        message: 'Fallo en la consulta :('
+                    })
+                }
+            });
+        }else{
+            return res.status(404).send({
+                message: 'Falta la ID de la calificacion a revisar'
+            })
+        }
     }
 }
 

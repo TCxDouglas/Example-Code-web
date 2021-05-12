@@ -22,6 +22,24 @@ var query = {
         getQuery = 'INSERT INTO respuestas (idCalificacion, idPregunta, respuesta, estado) VALUE ("' + idCalificacion + '", "' + idPregunta + '", "' + respuesta + '", "' + estado + '")'
 
         return getQuery
+    },
+    getEvaluations: (idAlumno, idEvaluacion) => {
+        getQuery = 'SELECT ' + 
+        'calificaciones.idCalificacion, usuarios.nombre, usuarios.apellido, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje ' +
+        'FROM calificaciones, usuarios, evaluaciones WHERE ' + 
+        'calificaciones.idAlumno = usuarios.id and evaluaciones.idEvaluacion = calificaciones.idEvaluacion AND usuarios.id = "' + idAlumno + 
+        '" AND evaluaciones.idEvaluacion = "' + idEvaluacion + '"'
+
+        return getQuery
+    },
+    getAnswers: (idCalificacion) =>{
+        getQuery = 'SELECT respuestas.idRespuesta, calificaciones.idCalificacion , preguntas.idPregunta, ' +
+        'preguntas.pregunta, respuestas.respuesta, respuestas.estado ' +
+        'FROM ' + 
+        'calificaciones, preguntas, respuestas ' +
+        'WHERE calificaciones.idCalificacion = respuestas.idCalificacion AND preguntas.idPregunta = respuestas.idPregunta AND calificaciones.idCalificacion = "' + idCalificacion + '"'
+
+        return getQuery
     }
 }
 
