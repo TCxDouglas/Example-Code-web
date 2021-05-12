@@ -1,7 +1,11 @@
 var query = {
-    allEvaluations : 'SELECT docente.idDocente, evaluaciones.idEvaluacion, docente.nombreDocente, evaluaciones.nombreEvaluacion, evaluaciones.descripcion, evaluaciones.materia, evaluaciones.tiempo ' +
-     'FROM docente, evaluaciones WHERE docente.idDocente = evaluaciones.idDocente',
-    
+    listEvaluations : (materia) => {
+        getQuery = 'SELECT docente.idDocente, evaluaciones.idEvaluacion, docente.nombreDocente, evaluaciones.nombreEvaluacion, evaluaciones.descripcion, evaluaciones.materia, evaluaciones.tiempo ' +
+        'FROM docente, evaluaciones WHERE docente.idDocente = evaluaciones.idDocente AND evaluaciones.materia = "' + materia + '"'
+
+        
+        return getQuery;
+    },
     getQuestionTest:(idEva) => { 
         getQuery = 'SELECT ' +
         'preguntas.idPregunta, evaluaciones.nombreEvaluacion, preguntas.pregunta, preguntas.opcion1, preguntas.opcion2, preguntas.opcion3, preguntas.respuesta ' +

@@ -4,16 +4,38 @@ const querys = require('../consultas/examenes');
 
 var controller = {
     listEvaluations : (req, res) =>{
-        mysqlConnection.query(querys.allEvaluations, (err, rows, fields) => {
-            if (!err) {
-                return res.status(200).send({
-                    message: 'Success',
-                    evaluations: rows
-                })
-            } else {
-                console.log(err);
-            }
-        });
+        const { materia } = req.params;
+        var validate_materia = !validator.isEmpty(materia);
+
+        if(validate_materia){
+            mysqlConnection.query(querys.listEvaluations(materia), (err, rows, fields) => {
+                if (!err) {
+                    
+                    if(rows.length > 0){
+                        return res.status(200).send({
+                            message: 'Success',
+                            evaluations: rows
+                        })
+                    }else{
+                        return res.status(200).send({
+                            message: 'No hay examenes disponibles de la materia de ' + materia
+                        })
+                    }
+
+                } else {
+                    console.log(err);
+                    return res.status(404).send({
+                        message: 'Fallo en la consulta :('
+                    })
+                }
+            });
+        }else{
+            return res.status(404).send({
+                message: 'Falta seleccionar la materia'
+            })
+        }
+
+        
     },
     getQuestionTest: (req, res) => {
         const { idEvaluacion } = req.params;
@@ -74,6 +96,19 @@ var controller = {
         } catch (error) {
             
         }
+    },
+    saveAnswers: (req, res) =>{
+        const { idCalificacion, idPregunta, respuesta, estado } = req.body;
+
+        var validate_idCalificacion = !validator.isEmpty(idCalificacion);
+        var validate_idPregunta = !validator.isEmpty(idPregunta);
+        var validate_respuesta = !validator.isEmpty(respuesta);
+        var validate_estado = !validator.isEmpty(estado);
+
+        if(validate_idCalificacion && validate_idPregunta && validate_respuesta && validate_estado){
+            
+        }
+
     }
 }
 
