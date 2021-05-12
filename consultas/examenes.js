@@ -17,6 +17,11 @@ var query = {
         getQuery = 'INSERT INTO calificaciones (idAlumno, idEvaluacion, puntaje) VALUES ("' + idAlumno + '", "' + idEvaluacion + '", "' + puntaje + '")'
 
         return getQuery
+    },
+    saveAnswers: (idCalificacion, idPregunta, respuesta, estado) => {
+        getQuery = 'INSERT INTO respuestas (idCalificacion, idPregunta, respuesta, estado) VALUE ("' + idCalificacion + '", "' + idPregunta + '", "' + respuesta + '", "' + estado + '")'
+
+        return getQuery
     }
 }
 

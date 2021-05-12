@@ -11,5 +11,6 @@ router.get('/login/:email?/:pass?', escolaresControllers.login);
 router.get('/listEvaluations/:materia', examenesControllers.listEvaluations);
 router.get('/getQuestionTest/:idEvaluacion', examenesControllers.getQuestionTest);
 router.post('/saveScore', examenesControllers.saveScore);
+router.post('/saveAnswers', examenesControllers.saveAnswers);
 
 module.exports = router;
