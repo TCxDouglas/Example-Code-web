@@ -52,5 +52,9 @@ Peticion por get -> http://localhost:3900/api/getEvaluation/(idAlumno)/(idEvalua
 Return -> Message, evaluations
 
 ## Obtener las respuestas de un estudiante
-peticion por get -> http://localhost:3900/api/getAnswers/8
+peticion por get -> http://localhost:3900/api/getAnswers/(idCalificacion)
+return -> Message, evaluations
+
+## Obtener todas las evaluaciones realizadas por un estudiante
+Peticion por Get -> http://localhost:3900/api/getEvaluationStudent/(idAlumno)
 return -> Message, evaluations

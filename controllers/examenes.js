@@ -201,6 +201,41 @@ var controller = {
                 message: 'Falta la ID de la calificacion a revisar'
             })
         }
+    },
+    getEvaluationsStudent: (req, res) =>{
+        const { idAlumno } = req.params;
+
+        var validate_idAlumno = !validator.isEmpty(idAlumno);
+
+        if(validate_idAlumno){
+
+            mysqlConnection.query(querys.getEvaluationsStudent(idAlumno), (err, rows, fields) => {
+                if (!err) {
+
+                    if (rows.length > 0) {
+                        return res.status(200).send({
+                            message: 'Success',
+                            evaluations: rows
+                        })
+                    } else {
+                        return res.status(404).send({
+                            message: 'El estudiante no ha realizado examenes'
+                        })
+                    }
+
+                } else {
+                    console.log(err);
+                    return res.status(404).send({
+                        message: 'Fallo en la consulta :('
+                    })
+                }
+            });
+
+        }else{
+            return res.status(404).send({
+                message: 'Falta la ID del Estudiante'
+            })
+        }
     }
 }
 
