@@ -21,20 +21,19 @@ var controller = {
         });
     },
     newUser: (req, res) => {
-        const { nombre, apellido, email, pass, telefono, tipo } = req.body;
+        const { nombre, email, pass, telefono, tipo } = req.body;
 
         try {
             var validate_nombre = !validator.isEmpty(nombre);
-            var validate_apellido = !validator.isEmpty(apellido);
             var validate_email = !validator.isEmpty(email);
             var validate_pass = !validator.isEmpty(pass);
             var validate_telefono = !validator.isEmpty(telefono);
             var validate_tipo = !validator.isEmpty(tipo);
 
-            if (validate_nombre && validate_apellido && validate_email & validate_pass && validate_telefono && validate_tipo) {
+            if (validate_nombre && validate_email & validate_pass && validate_telefono && validate_tipo) {
 
-                const query = `INSERT INTO usuarios (nombre, apellido, email, pass, telefono, tipo)
-                    VALUES ('${nombre}', '${apellido}', '${email}', '${pass}', '${telefono}', '${tipo}')`;
+                const query = `INSERT INTO usuarios (nombre, email, pass, telefono, tipo)
+                    VALUES ('${nombre}', '${email}', '${pass}', '${telefono}', '${tipo}')`;
 
                 mysqlConnection.query(query, (err, rows, fields) => {
                     if (!err) {

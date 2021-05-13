@@ -25,7 +25,7 @@ var query = {
     },
     getEvaluations: (idAlumno, idEvaluacion) => {
         getQuery = 'SELECT ' + 
-        'calificaciones.idCalificacion, usuarios.nombre, usuarios.apellido, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje ' +
+        'calificaciones.idCalificacion, usuarios.nombre, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje ' +
         'FROM calificaciones, usuarios, evaluaciones WHERE ' + 
         'calificaciones.idAlumno = usuarios.id and evaluaciones.idEvaluacion = calificaciones.idEvaluacion AND usuarios.id = "' + idAlumno + 
         '" AND evaluaciones.idEvaluacion = "' + idEvaluacion + '"'
@@ -43,7 +43,7 @@ var query = {
     },
     getEvaluationsStudent: (idAlumno) =>{
         getQuery = 'SELECT ' +
-        'calificaciones.idCalificacion, usuarios.nombre, usuarios.apellido, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje ' +
+        'calificaciones.idCalificacion, usuarios.nombre, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje ' +
         'FROM calificaciones, usuarios, evaluaciones WHERE ' +
         'calificaciones.idAlumno = usuarios.id and evaluaciones.idEvaluacion = calificaciones.idEvaluacion AND usuarios.id = "' + idAlumno + '"'
 
