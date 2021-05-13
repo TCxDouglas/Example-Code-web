@@ -28,3 +28,29 @@ return -> message, status
 ## Todos los usuarios
 Peticion por get -> http://localhost:3900/api/data
 return -> message, users
+
+
+## Obtener los examenes por nombre de materia
+peticion por get -> http://localhost:3900/api/listEvaluations/(Materia)
+return -> Message, evaluations
+
+## Obtener las preguntas del Test correspondiente
+peticion por get -> http://localhost:3900/api/getQuestionTest/(ID de la Evaluacion o test)
+Return -> Message, Test
+
+## Crear el registro de la evaluacion del estudiante
+Peticion por Post -> http://localhost:3900/api/saveScore
+Enviar Json por x-Form { idAlumno, idEvaluacion, puntaje }
+
+## Guardar las respuestas de los alumnos
+Peticion por post -> http://localhost:3900/api/saveAnswers
+ENviar Json por x-form { idCalificacion, idPregunta, respuesta, estado }
+Return test.insertId -> ID Calificacion recien creada
+
+## Obtener la calificacion de un estudiante
+Peticion por get -> http://localhost:3900/api/getEvaluation/(idAlumno)/(idEvaluacion)
+Return -> Message, evaluations
+
+## Obtener las respuestas de un estudiante
+peticion por get -> http://localhost:3900/api/getAnswers/8
+return -> Message, evaluations
