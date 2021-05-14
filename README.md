@@ -58,3 +58,9 @@ return -> Message, evaluations
 ## Obtener todas las evaluaciones realizadas por un estudiante
 Peticion por Get -> http://localhost:3900/api/getEvaluationStudent/(idAlumno)
 return -> Message, evaluations
+
+## TEST AÑADIDOS
+Matematica
+Lenguaje
+Ciencia
+Sociales
