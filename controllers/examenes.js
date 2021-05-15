@@ -236,6 +236,40 @@ var controller = {
                 message: 'Falta la ID del Estudiante'
             })
         }
+    },
+    getEvaluationForMateria : (req, res) => {
+        const { idAlumno, materia } = req.params;
+
+        var validate_idAlumno = !validator.isEmpty(idAlumno);
+        var validate_materia = !validator.isEmpty(materia);
+
+        if(validate_idAlumno && validate_materia){
+            mysqlConnection.query(querys.getEvaluationForMateria(idAlumno, materia), (err, rows, fields) => {
+                if (!err) {
+
+                    if (rows.length > 0) {
+                        return res.status(200).send({
+                            message: 'Success',
+                            evaluations: rows
+                        })
+                    } else {
+                        return res.status(404).send({
+                            message: 'El estudiante no ha realizado examen de la materia ' + materia
+                        })
+                    }
+
+                } else {
+                    console.log(err);
+                    return res.status(404).send({
+                        message: 'Fallo en la consulta :('
+                    })
+                }
+            });
+        }else{
+            return res.status(404).send({
+                message: 'Faltan datos'
+            })
+        }
     }
 }
 

@@ -48,6 +48,14 @@ var query = {
         'calificaciones.idAlumno = usuarios.id and evaluaciones.idEvaluacion = calificaciones.idEvaluacion AND usuarios.id = "' + idAlumno + '"'
 
         return getQuery
+    },
+    getEvaluationForMateria: (idAlumno, materia) =>{
+        getQuery = 'SELECT ' +
+        'calificaciones.idCalificacion, usuarios.nombre, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje ' +
+        'FROM calificaciones, usuarios, evaluaciones WHERE ' +
+        'calificaciones.idAlumno = usuarios.id and evaluaciones.idEvaluacion = calificaciones.idEvaluacion AND usuarios.id = "' + idAlumno + '" AND evaluaciones.materia = "' + materia + '"';
+
+        return getQuery
     }
 }
 
