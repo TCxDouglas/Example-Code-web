@@ -59,6 +59,11 @@ return -> Message, evaluations
 Peticion por Get -> http://localhost:3900/api/getEvaluationStudent/(idAlumno)
 return -> Message, evaluations
 
+
+## Obtener las evaluaciones de un estudiante por materia
+peticion por GET -> http://localhost:3900/api/getEvaluationForMateria/(idAlumno)/(Materia)
+return -> Message, evaluations
+
 ## TEST AÑADIDOS
 Matematica
 Lenguaje
