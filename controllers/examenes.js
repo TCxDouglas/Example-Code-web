@@ -5,70 +5,79 @@ const querys = require('../consultas/examenes');
 var controller = {
     listEvaluations: (req, res) => {
         const { materia } = req.params;
-        var validate_materia = !validator.isEmpty(materia);
+        try {
+            var validate_materia = !validator.isEmpty(materia);
 
-        if (validate_materia) {
-            mysqlConnection.query(querys.listEvaluations(materia), (err, rows, fields) => {
-                if (!err) {
+            if (validate_materia) {
+                mysqlConnection.query(querys.listEvaluations(materia), (err, rows, fields) => {
+                    if (!err) {
 
-                    if (rows.length > 0) {
-                        return res.status(200).send({
-                            message: 'Success',
-                            evaluations: rows
-                        })
+                        if (rows.length > 0) {
+                            return res.status(200).send({
+                                message: 'Success',
+                                evaluations: rows
+                            })
+                        } else {
+                            return res.status(200).send({
+                                message: 'No hay examenes disponibles de la materia de ' + materia
+                            })
+                        }
+
                     } else {
-                        return res.status(200).send({
-                            message: 'No hay examenes disponibles de la materia de ' + materia
+                        console.log(err);
+                        return res.status(404).send({
+                            message: 'Fallo en la consulta :('
                         })
                     }
-
-                } else {
-                    console.log(err);
-                    return res.status(404).send({
-                        message: 'Fallo en la consulta :('
-                    })
-                }
-            });
-        } else {
-            return res.status(404).send({
-                message: 'Falta seleccionar la materia'
-            })
+                });
+            } else {
+                return res.status(404).send({
+                    message: 'Falta seleccionar la materia'
+                })
+            }
+        } catch (error) {
+            console.log(error)
         }
 
 
     },
     getQuestionTest: (req, res) => {
         const { idEvaluacion } = req.params;
-        var validate_id = !validator.isEmpty(idEvaluacion);
 
-        if (validate_id) {
-            mysqlConnection.query(querys.getQuestionTest(idEvaluacion), (err, rows, fields) => {
-                if (!err) {
+        try {
+            var validate_id = !validator.isEmpty(idEvaluacion);
 
-                    if (rows.length > 0) {
-                        return res.status(200).send({
-                            message: 'Success',
-                            test: rows
-                        })
+            if (validate_id) {
+                mysqlConnection.query(querys.getQuestionTest(idEvaluacion), (err, rows, fields) => {
+                    if (!err) {
+
+                        if (rows.length > 0) {
+                            return res.status(200).send({
+                                message: 'Success',
+                                test: rows
+                            })
+                        } else {
+                            return res.status(404).send({
+                                message: 'no hay Test registrado con la ID ' + idEvaluacion
+                            })
+                        }
                     } else {
-                        return res.status(404).send({
-                            message: 'no hay Test registrado con la ID ' + idEvaluacion
-                        })
+                        console.log(err);
                     }
-                } else {
-                    console.log(err);
-                }
-            });
+                });
 
-        } else {
-            return res.status(404).send({
-                message: 'Falta el ID de la evaluacion'
-            })
+            } else {
+                return res.status(404).send({
+                    message: 'Falta el ID de la evaluacion'
+                })
+            }
+        } catch (error) {
+            console.log(error);
         }
     },
     saveScore: (req, res) => {
         const { idAlumno, idEvaluacion, puntaje, fecha } = req.body;
- 
+
         try {
 
             var validate_idAlumno = !validator.isEmpty(idAlumno);
@@ -136,115 +145,129 @@ var controller = {
 
 
     },
-    getEvaluation: (req, res) =>{
+    getEvaluation: (req, res) => {
         const { idAlumno, idEvaluacion } = req.params;
-        
-        var validate_idAlumno = !validator.isEmpty(idAlumno);
-        var validate_idEvaluacion = !validator.isEmpty(idEvaluacion);
 
-        if(validate_idAlumno && validate_idEvaluacion){
-            mysqlConnection.query(querys.getEvaluations(idAlumno, idEvaluacion), (err, rows, fields) => {
-                if (!err) {
+        try {
 
-                    if (rows.length > 0) {
-                        return res.status(200).send({
-                            message: 'Success',
-                            evaluations: rows
-                        })
+            var validate_idAlumno = !validator.isEmpty(idAlumno);
+            var validate_idEvaluacion = !validator.isEmpty(idEvaluacion);
+
+            if (validate_idAlumno && validate_idEvaluacion) {
+                mysqlConnection.query(querys.getEvaluations(idAlumno, idEvaluacion), (err, rows, fields) => {
+                    if (!err) {
+
+                        if (rows.length > 0) {
+                            return res.status(200).send({
+                                message: 'Success',
+                                evaluations: rows
+                            })
+                        } else {
+                            return res.status(200).send({
+                                message: 'No ha realizado el examen todavia'
+                            })
+                        }
+
                     } else {
-                        return res.status(200).send({
-                            message: 'No ha realizado el examen todavia'
+                        console.log(err);
+                        return res.status(404).send({
+                            message: 'Fallo en la consulta :('
                         })
                     }
-
-                } else {
-                    console.log(err);
-                    return res.status(404).send({
-                        message: 'Fallo en la consulta :('
-                    })
-                }
-            });
-        }else{
-            return res.status(404).send({
-                message: 'Falta datos por enviar'
-            })
+                });
+            } else {
+                return res.status(404).send({
+                    message: 'Falta datos por enviar'
+                })
+            }
+        } catch (error) {
+            console.log(error)
         }
     },
     getAnswers: (req, res) => {
         const { idCalificacion } = req.params;
 
-        var validate_idCalificacion = !validator.isEmpty(idCalificacion);
+        try {
+            var validate_idCalificacion = !validator.isEmpty(idCalificacion);
 
-        if(validate_idCalificacion){
-            mysqlConnection.query(querys.getAnswers(idCalificacion), (err, rows, fields) => {
-                if (!err) {
+            if (validate_idCalificacion) {
+                mysqlConnection.query(querys.getAnswers(idCalificacion), (err, rows, fields) => {
+                    if (!err) {
 
-                    if (rows.length > 0) {
-                        return res.status(200).send({
-                            message: 'Success',
-                            evaluations: rows
-                        })
+                        if (rows.length > 0) {
+                            return res.status(200).send({
+                                message: 'Success',
+                                evaluations: rows
+                            })
+                        } else {
+                            return res.status(200).send({
+                                message: 'No hay respuestas registradas de esta Evaluacion'
+                            })
+                        }
+
                     } else {
-                        return res.status(200).send({
-                            message: 'No hay respuestas registradas de esta Evaluacion'
+                        console.log(err);
+                        return res.status(404).send({
+                            message: 'Fallo en la consulta :('
                         })
                     }
-
-                } else {
-                    console.log(err);
-                    return res.status(404).send({
-                        message: 'Fallo en la consulta :('
-                    })
-                }
-            });
-        }else{
-            return res.status(404).send({
-                message: 'Falta la ID de la calificacion a revisar'
-            })
+                });
+            } else {
+                return res.status(404).send({
+                    message: 'Falta la ID de la calificacion a revisar'
+                })
+            }
+        } catch (error) {
+            console.log(error)
         }
     },
-    getEvaluationsStudent: (req, res) =>{
+    getEvaluationsStudent: (req, res) => {
         const { idAlumno } = req.params;
 
-        var validate_idAlumno = !validator.isEmpty(idAlumno);
+        try {
+            var validate_idAlumno = !validator.isEmpty(idAlumno);
 
-        if(validate_idAlumno){
+            if (validate_idAlumno) {
 
-            mysqlConnection.query(querys.getEvaluationsStudent(idAlumno), (err, rows, fields) => {
-                if (!err) {
+                mysqlConnection.query(querys.getEvaluationsStudent(idAlumno), (err, rows, fields) => {
+                    if (!err) {
 
-                    if (rows.length > 0) {
-                        return res.status(200).send({
-                            message: 'Success',
-                            evaluations: rows
-                        })
+                        if (rows.length > 0) {
+                            return res.status(200).send({
+                                message: 'Success',
+                                evaluations: rows
+                            })
+                        } else {
+                            return res.status(200).send({
+                                message: 'El estudiante no ha realizado examenes'
+                            })
+                        }
+
                     } else {
-                        return res.status(200).send({
-                            message: 'El estudiante no ha realizado examenes'
+                        console.log(err);
+                        return res.status(404).send({
+                            message: 'Fallo en la consulta :('
                         })
                     }
+                });
 
-                } else {
-                    console.log(err);
-                    return res.status(404).send({
-                        message: 'Fallo en la consulta :('
-                    })
-                }
-            });
-
-        }else{
-            return res.status(404).send({
-                message: 'Falta la ID del Estudiante'
-            })
+            } else {
+                return res.status(404).send({
+                    message: 'Falta la ID del Estudiante'
+                })
+            }
+        } catch (error) {
+            console.log(error)
         }
     },
-    getEvaluationForMateria : (req, res) => {
+    getEvaluationForMateria: (req, res) => {
         const { idAlumno, materia } = req.params;
 
-        var validate_idAlumno = !validator.isEmpty(idAlumno);
+        try {
+            var validate_idAlumno = !validator.isEmpty(idAlumno);
         var validate_materia = !validator.isEmpty(materia);
 
-        if(validate_idAlumno && validate_materia){
+        if (validate_idAlumno && validate_materia) {
             mysqlConnection.query(querys.getEvaluationForMateria(idAlumno, materia), (err, rows, fields) => {
                 if (!err) {
 
@@ -266,10 +289,13 @@ var controller = {
                     })
                 }
             });
-        }else{
+        } else {
             return res.status(404).send({
                 message: 'Faltan datos'
             })
+        }
+        } catch (error) {
+            console.log(error)
         }
     }
 }
