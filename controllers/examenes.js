@@ -67,17 +67,18 @@ var controller = {
         }
     },
     saveScore: (req, res) => {
-        const { idAlumno, idEvaluacion, puntaje } = req.body;
-
+        const { idAlumno, idEvaluacion, puntaje, fecha } = req.body;
+ 
         try {
 
             var validate_idAlumno = !validator.isEmpty(idAlumno);
             var validate_idEvaluacion = !validator.isEmpty(idEvaluacion);
             var validate_puntaje = !validator.isEmpty(puntaje);
+            var validate_fecha = !validator.isEmpty(fecha);
 
-            if (validate_idAlumno && validate_idEvaluacion && validate_puntaje) {
+            if (validate_idAlumno && validate_idEvaluacion && validate_puntaje && validate_fecha) {
 
-                mysqlConnection.query(querys.saveScore(idAlumno, idEvaluacion, puntaje), (err, rows, fields) => {
+                mysqlConnection.query(querys.saveScore(idAlumno, idEvaluacion, puntaje, fecha), (err, rows, fields) => {
                     if (!err) {
                         return res.status(200).send({
                             message: 'Success',
@@ -98,7 +99,7 @@ var controller = {
             }
 
         } catch (error) {
-
+            console.log(error)
         }
     },
     saveAnswers: (req, res) => {
@@ -218,7 +219,7 @@ var controller = {
                             evaluations: rows
                         })
                     } else {
-                        return res.status(404).send({
+                        return res.status(200).send({
                             message: 'El estudiante no ha realizado examenes'
                         })
                     }

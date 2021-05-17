@@ -40,7 +40,7 @@ Return -> Message, Test
 
 ## Crear el registro de la evaluacion del estudiante
 Peticion por Post -> http://localhost:3900/api/saveScore
-Enviar Json por x-Form { idAlumno, idEvaluacion, puntaje }
+Enviar Json por x-Form { idAlumno, idEvaluacion, puntaje, fecha }
 
 ## Guardar las respuestas de los alumnos
 Peticion por post -> http://localhost:3900/api/saveAnswers

@@ -13,8 +13,8 @@ var query = {
 
         return getQuery
     }, 
-    saveScore: (idAlumno, idEvaluacion, puntaje) => {
-        getQuery = 'INSERT INTO calificaciones (idAlumno, idEvaluacion, puntaje) VALUES ("' + idAlumno + '", "' + idEvaluacion + '", "' + puntaje + '")'
+    saveScore: (idAlumno, idEvaluacion, puntaje, fecha) => {
+        getQuery = 'INSERT INTO calificaciones (idAlumno, idEvaluacion, puntaje, fecha) VALUES ("' + idAlumno + '", "' + idEvaluacion + '", "' + puntaje + ', "' + fecha + '")'
 
         return getQuery
     },
@@ -25,10 +25,10 @@ var query = {
     },
     getEvaluations: (idAlumno, idEvaluacion) => {
         getQuery = 'SELECT ' + 
-        'calificaciones.idCalificacion, usuarios.nombre, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje ' +
+        'calificaciones.idCalificacion, usuarios.nombre, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje, calificaciones.fecha ' +
         'FROM calificaciones, usuarios, evaluaciones WHERE ' + 
         'calificaciones.idAlumno = usuarios.id and evaluaciones.idEvaluacion = calificaciones.idEvaluacion AND usuarios.id = "' + idAlumno + 
-        '" AND evaluaciones.idEvaluacion = "' + idEvaluacion + '"'
+        '" AND evaluaciones.idEvaluacion = "' + idEvaluacion + '" ORDER by calificaciones.fecha DESC LIMIT 1'
 
         return getQuery
     },
@@ -43,7 +43,7 @@ var query = {
     },
     getEvaluationsStudent: (idAlumno) =>{
         getQuery = 'SELECT ' +
-        'calificaciones.idCalificacion, usuarios.nombre, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje ' +
+        'calificaciones.idCalificacion, usuarios.nombre, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje, calificaciones.fecha ' +
         'FROM calificaciones, usuarios, evaluaciones WHERE ' +
         'calificaciones.idAlumno = usuarios.id and evaluaciones.idEvaluacion = calificaciones.idEvaluacion AND usuarios.id = "' + idAlumno + '"'
 
@@ -51,7 +51,7 @@ var query = {
     },
     getEvaluationForMateria: (idAlumno, materia) =>{
         getQuery = 'SELECT ' +
-        'calificaciones.idCalificacion, usuarios.nombre, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje ' +
+        'calificaciones.idCalificacion, usuarios.nombre, evaluaciones.nombreEvaluacion, evaluaciones.materia, calificaciones.Puntaje, calificaciones.fecha ' +
         'FROM calificaciones, usuarios, evaluaciones WHERE ' +
         'calificaciones.idAlumno = usuarios.id and evaluaciones.idEvaluacion = calificaciones.idEvaluacion AND usuarios.id = "' + idAlumno + '" AND evaluaciones.materia = "' + materia + '"';
 

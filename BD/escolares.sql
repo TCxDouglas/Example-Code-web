@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2021 at 02:17 AM
+-- Generation Time: May 17, 2021 at 08:31 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -31,20 +31,21 @@ CREATE TABLE `calificaciones` (
   `idCalificacion` int(11) NOT NULL,
   `idAlumno` int(11) NOT NULL,
   `idEvaluacion` int(11) NOT NULL,
-  `Puntaje` varchar(20) COLLATE utf8_spanish2_ci NOT NULL
+  `Puntaje` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `fecha` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Dumping data for table `calificaciones`
 --
 
-INSERT INTO `calificaciones` (`idCalificacion`, `idAlumno`, `idEvaluacion`, `Puntaje`) VALUES
-(5, 3, 1, '8'),
-(6, 4, 1, '7'),
-(7, 4, 2, '7'),
-(8, 5, 2, '0'),
-(9, 5, 1, '5'),
-(10, 7, 1, '10');
+INSERT INTO `calificaciones` (`idCalificacion`, `idAlumno`, `idEvaluacion`, `Puntaje`, `fecha`) VALUES
+(5, 3, 1, '8', '5-05-2021'),
+(6, 4, 1, '7', '04-05-2021'),
+(7, 4, 2, '7', '07-05-2021'),
+(8, 5, 2, '0', '01-05-2021'),
+(9, 5, 1, '5', '05-05-2021'),
+(10, 7, 1, '10', '15-05-2021');
 
 -- --------------------------------------------------------
 
